@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+class Employee {
+private:
+    int empId;
+    string empName;
+    float empSalary;
+public:
+    // Constructor to initialize employee data
+    Employee(int id, string name, float salary) {
+        empId = id;
+        empName = name;
+        empSalary = salary;
+    }
+
+    // Function to get employee data from the user
+    void getEmployeeData() {
+        cout << "Enter Employee ID: ";
+        cin >> empId;
+        cout << "Enter Employee Name: ";
+        cin.ignore(); // Ignore newline character left in the input buffer
+        getline(cin, empName);
+        cout << "Enter Employee Salary: ";
+        cin >> empSalary;
+    }
+
+    // Function to display employee data
+    void displayEmployeeData() {
+        cout << "Employee ID: " << empId << endl;
+        cout << "Employee Name: " << empName << endl;
+        cout << "Employee Salary: " << empSalary << endl;
+    }
+
+    // Getter for Employee ID
+    int getEmpId() {
+        return empId;
+    }
+    // Setter for Employee ID
+    void setEmpId(int id) {
+        empId = id;
+    }
+    // Function to calculate and return the annual salary
+    float calculateAnnualSalary() {
+        return empSalary * 12;
+    }
+};
+int main() {
+    // Create two Employee objects
+    Employee e1(101, "John Doe", 5000.0);
+    Employee e2(102, "Jane Smith", 6000.0);
+
+    // Display initial employee data
+    cout << "Initial Employee Data:" << endl;
+    e1.displayEmployeeData();
+    e2.displayEmployeeData();
+
+    // Update employee data using the getEmployeeData function
+    cout << "\nEnter New Employee Data:" << endl;
+    e1.getEmployeeData();
+    e2.getEmployeeData();
+
+    // Display updated employee data
+    cout << "\nUpdated Employee Data:" << endl;
+    e1.displayEmployeeData();
+    e2.displayEmployeeData();
+
+    // Calculate and display annual salaries
+    cout << "\nAnnual Salaries:" << endl;
+    cout << "Employee 1: $" << e1.calculateAnnualSalary() << endl;
+    cout << "Employee 2: $" << e2.calculateAnnualSalary() << endl;
+
+    // File handling to save employee data to a file
+    ofstream outFile("employee_data.txt");
+    outFile << "Employee 1 Data:" << endl;
+    outFile << "ID: " << e1.getEmpId() << endl;
+    outFile << "Name: " << e1.getEmpName() << endl;
+    outFile << "Salary: " << e1.getEmpSalary() << endl;
+    outFile << "Annual Salary: " << e1.calculateAnnualSalary() << endl;
+    outFile << "\nEmployee 2 Data:" << endl;
+    outFile << "ID: " << e2.getEmpId() << endl;
+    outFile << "Name: " << e2.getEmpName() << endl;
+    outFile << "Salary: " << e2.getEmpSalary() << endl;
+    outFile << "Annual Salary: " << e2.calculateAnnualSalary() << endl;
+    outFile.close();
+    cout << "\nEmployee data saved to 'employee_data.txt'." << endl;
+    return 0; 
+}
+
